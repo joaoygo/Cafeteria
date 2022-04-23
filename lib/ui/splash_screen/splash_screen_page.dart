@@ -1,5 +1,5 @@
 import 'package:cafeteira_ygo/core/common/constants/assets_constants.dart';
-import 'package:cafeteira_ygo/core/common/themes/colors_themes.dart';
+import 'package:cafeteira_ygo/core/common/themes/colors_theme.dart';
 import 'package:cafeteira_ygo/ui/splash_screen/splash_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,7 +23,7 @@ class SplashScreenPage extends GetView<SplashScreenController> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: ColorsThemes.antique.withOpacity(0.95),
+              color: ColorsTheme.antique.shade600.withOpacity(0.95),
             ),
           ),
           Positioned.fill(
