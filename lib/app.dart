@@ -20,7 +20,7 @@ class App extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark));
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top],
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
     );
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
