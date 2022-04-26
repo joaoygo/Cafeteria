@@ -1,4 +1,5 @@
 import 'package:cafeteira_ygo/core/common/constants/texts_constants.dart';
+import 'package:cafeteira_ygo/core/routes/app_routes.dart';
 import 'package:cafeteira_ygo/shared/interfaces/i_home_screen_repository.dart';
 import 'package:cafeteira_ygo/shared/models/item_model.dart';
 import 'package:flutter/widgets.dart';
@@ -40,14 +41,19 @@ class HomeScreenController extends GetxController with StateMixin {
     }
   }
 
-  void goToCart(ItemModel item) async {
-    change([], status: RxStatus.loading());
-    try {
-      _iHomeScreenRepository.postItems(item);
-      change([], status: RxStatus.success());
-    } catch (e) {
-      change([],
-          status: RxStatus.error(TextsConstants.errorWhenAddingItemToCart));
-    }
+  void goToDetails(ItemModel item) async {
+    // change([], status: RxStatus.loading());
+    // try {
+    //   _iHomeScreenRepository.postItems(item);
+    //   change([], status: RxStatus.success());
+    // } catch (e) {
+    //   change([],
+    //       status: RxStatus.error(TextsConstants.errorWhenAddingItemToCart));
+    // }
+
+    Get.toNamed(
+      AppRoutes.detailsSelectionScreen,
+      arguments: item,
+    );
   }
 }

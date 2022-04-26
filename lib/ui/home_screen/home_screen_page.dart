@@ -75,7 +75,7 @@ class HomeScreenPage extends GetView<HomeScreenController> {
                   final ItemModel item = state[index];
                   return CardWithItemWidget(
                     label: item.name,
-                    onPressed: () => controller.goToCart(item),
+                    onPressed: () => controller.goToDetails(item),
                   );
                 },
               ),
