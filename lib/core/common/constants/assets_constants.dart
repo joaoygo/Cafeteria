@@ -3,6 +3,7 @@ class AssetsConstants {
       'assets/images/background_splash_screen_page.svg';
   static const String baseAssets = 'assets/images/';
   static const String cappuccino = 'assets/images/cappuccino.svg';
+  static const String cupIcon = 'assets/images/cup.svg';
   static const String diagonalLine = 'assets/images/diagonal_line';
   static const String expresso = 'assets/images/expresso.svg';
   static const String logoCoffeSplashScreenPage =

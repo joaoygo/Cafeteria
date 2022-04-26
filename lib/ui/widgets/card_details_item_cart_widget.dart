@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:cafeteira_ygo/core/common/constants/texts_constants.dart';
 import 'package:cafeteira_ygo/ui/widgets/total_items_widget.dart';
+import 'package:get/get.dart';
 
 import '../../core/common/themes/app_text_style_theme.dart';
 
@@ -12,13 +13,14 @@ class CardDetailsItemCartWidget extends StatelessWidget {
   final String size;
   final String nome;
   final int amoutSugar;
-
+  final double price;
   const CardDetailsItemCartWidget({
     Key? key,
     required this.amount,
     required this.size,
     required this.nome,
     required this.amoutSugar,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -53,7 +55,7 @@ class CardDetailsItemCartWidget extends StatelessWidget {
                               style: AppTextStyleTheme
                                   .cardDetailsItemSubTitleSpanWidgetTextStyle),
                           Text(
-                            size,
+                            TextsConstants.size,
                             style: AppTextStyleTheme
                                 .cardDetailsItemSubTitleWidgetTextStyle,
                           ),
@@ -68,8 +70,10 @@ class CardDetailsItemCartWidget extends StatelessWidget {
               children: [
                 TotalItemsWidget(
                   value: amount,
-                  incremente: () => print('dsada'),
-                  decremente: () => print('object'),
+                  incremente: () =>
+                      Get.snackbar('Em construçao', 'Em construçao'),
+                  decremente: () =>
+                      Get.snackbar('Em construçao', 'Em construçao'),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,7 +86,7 @@ class CardDetailsItemCartWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 4.0),
                       child: Text(
-                        '1,10',
+                        price.toStringAsFixed(2),
                         style: AppTextStyleTheme
                             .cardDetailsPriceItemWidgetTextStyle,
                       ),

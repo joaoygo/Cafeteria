@@ -19,13 +19,6 @@ class CartScreenPage extends GetView<CartScreenController> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: ColorsTheme.antique.shade900,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: ColorsTheme.neutral.shade700,
@@ -77,6 +70,7 @@ class CartScreenPage extends GetView<CartScreenController> {
                           size: item.size,
                           amount: item.amount,
                           amoutSugar: item.cube,
+                          price: item.price,
                         ),
                       );
                     },
@@ -126,7 +120,7 @@ class CartScreenPage extends GetView<CartScreenController> {
             FloatingActionButton.extended(
               heroTag: TextsConstants.addCart,
               label: const Text(TextsConstants.finish),
-              onPressed: () => print('aaa'),
+              onPressed: () => Get.snackbar('Em construçao', 'Em construçao'),
               backgroundColor: ColorsTheme.antique.shade700,
               extendedPadding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.2),
@@ -134,7 +128,7 @@ class CartScreenPage extends GetView<CartScreenController> {
             FloatingActionButton(
               heroTag: TextsConstants.viewCart,
               child: const Icon(Icons.cancel_outlined),
-              onPressed: () => print('bbbbb'),
+              onPressed: () => Get.snackbar('Em construçao', 'Em construçao'),
               backgroundColor: ColorsTheme.antique.shade700,
             ),
           ],
