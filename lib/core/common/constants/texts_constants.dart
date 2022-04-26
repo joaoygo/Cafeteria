@@ -12,4 +12,5 @@ class TextsConstants {
   static const String sugar = 'Sugar';
   static const String total = 'Total';
   static const String viewCart = 'View cart';
+  static const String object = 'Object';
 }
