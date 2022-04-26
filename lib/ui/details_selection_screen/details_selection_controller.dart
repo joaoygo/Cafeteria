@@ -10,7 +10,7 @@ class DetailsSelectionController extends GetxController with StateMixin {
   RxString currentSize = ''.obs;
   RxInt currentSugar = 0.obs;
   RxInt amountItems = 0.obs;
-
+  RxDouble basePriceNow = 0.0.obs;
   RxDouble basePrice = 0.0.obs;
   // RxDouble unitaryPrice = 0.0.obs;
   // RxDouble valueItemSugar = 0.0.obs;
@@ -26,9 +26,9 @@ class DetailsSelectionController extends GetxController with StateMixin {
     finalItem = Get.arguments;
     currentSize.value = finalItem.size;
     currentSugar.value = finalItem.cube;
-    //unitaryPrice.value = finalItem.price;
     basePrice.value = finalItem.price;
     amountItems.value = 1;
+    change([], status: RxStatus.success());
   }
 
   void goToDetails(ItemModel item) async {
@@ -40,51 +40,38 @@ class DetailsSelectionController extends GetxController with StateMixin {
       change([],
           status: RxStatus.error(TextsConstants.errorWhenAddingItemToCart));
     }
-
-    // Get.toNamed(
-    //   AppRoutes.detailsSelectionScreen,
-    //   arguments: item,
-    // );
   }
 
   void changeSize(String newSize) {
     currentSize.value = newSize;
     if (newSize == 's') {
-      basePrice.value = finalItem.price - 1.50;
-    } else if (newSize == 'm') {
-      basePrice.value = finalItem.price;
-    } else if (newSize == 'l') {
       basePrice.value = finalItem.price + 1.50;
+    } else if (newSize == 'm') {
+      basePrice.value = finalItem.price + 2;
+    } else if (newSize == 'l') {
+      basePrice.value = finalItem.price + 2.50;
     }
-    //calculateUnitaryPrice();
-    print(currentSize);
   }
 
   void changeAmountSugar(int newAmountCubesSugar) {
-    //currentSugar.value = newAmountCubesSugar;
     if (newAmountCubesSugar == 1 && currentSugar.value != newAmountCubesSugar) {
-      changeSize(currentSize.value);
+      //changeSize(currentSize.value);
       basePrice.value = basePrice.value + 0.50;
       currentSugar.value = newAmountCubesSugar;
-      //changeSize(currentSize.value);
     } else if (newAmountCubesSugar == 2 &&
         currentSugar.value != newAmountCubesSugar) {
       changeSize(currentSize.value);
       basePrice.value = basePrice.value + 1;
       currentSugar.value = newAmountCubesSugar;
-      //changeSize(currentSize.value);
     } else if (newAmountCubesSugar == 3 &&
         currentSugar.value != newAmountCubesSugar) {
       changeSize(currentSize.value);
       basePrice.value = basePrice.value + 1.5;
       currentSugar.value = newAmountCubesSugar;
-      //changeSize(currentSize.value);
     } else if (newAmountCubesSugar == 0) {
       currentSugar.value = newAmountCubesSugar;
       changeSize(currentSize.value);
     }
-    //calculateUnitaryPrice();
-    print(newAmountCubesSugar);
   }
 
   // void calculateUnitaryPrice() {
@@ -102,14 +89,21 @@ class DetailsSelectionController extends GetxController with StateMixin {
       amountItems.value = amountItems.value - 1;
       basePrice.value = basePrice.value - (basePrice.value / amountItems.value);
     }
-    print(amountItems);
   }
 
   void increment() {
-    var uniValue = basePrice.value / amountItems.value;
-    amountItems.value = amountItems.value + 1;
-    basePrice.value = uniValue * amountItems.value;
-    print(amountItems);
+    if (basePriceNow.value != basePrice.value) {
+      currentSize.value = 's';
+      currentSugar.value = 0;
+      amountItems.value = 1;
+      basePrice.value = 0.0;
+    } else {
+      basePrice = (basePrice.value * amountItems.value) as RxDouble;
+    }
+    // var uniValue = basePrice.value / amountItems.value;
+    // amountItems.value = amountItems.value + 1;
+    // basePrice.value = uniValue * amountItems.value;
+    // print(amountItems);
   }
 
   void show() {
@@ -118,7 +112,15 @@ class DetailsSelectionController extends GetxController with StateMixin {
     finalItem.amount = amountItems.value;
     finalItem.price =
         ((basePrice.value * amountItems.value) + (currentSugar.value * 0.50));
-    print(finalItem.toJson());
+
+    change([], status: RxStatus.loading());
+    try {
+      _iDetailsSelectionScreenRepository.postItems(finalItem);
+      change([], status: RxStatus.success());
+    } catch (e) {
+      change([],
+          status: RxStatus.error(TextsConstants.errorWhenAddingItemToCart));
+    }
   }
 
   void goToCar() async {

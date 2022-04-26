@@ -1,9 +1,12 @@
 import 'package:cafeteira_ygo/shared/interfaces/i_cart_screen_repository.dart';
+import 'package:cafeteira_ygo/shared/models/item_model.dart';
 import 'package:get/get.dart';
 
 import '../../core/common/constants/texts_constants.dart';
 
 class CartScreenController extends GetxController with StateMixin {
+  Rx<ItemModel> item = ItemModel.init().obs;
+
   final ICartScreenRepository _iCartScreenRepository;
   CartScreenController(this._iCartScreenRepository);
 

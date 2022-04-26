@@ -42,15 +42,6 @@ class HomeScreenController extends GetxController with StateMixin {
   }
 
   void goToDetails(ItemModel item) async {
-    // change([], status: RxStatus.loading());
-    // try {
-    //   _iHomeScreenRepository.postItems(item);
-    //   change([], status: RxStatus.success());
-    // } catch (e) {
-    //   change([],
-    //       status: RxStatus.error(TextsConstants.errorWhenAddingItemToCart));
-    // }
-
     Get.toNamed(
       AppRoutes.detailsSelectionScreen,
       arguments: item,

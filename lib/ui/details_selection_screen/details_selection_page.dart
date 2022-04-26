@@ -536,25 +536,27 @@ class DetailsSelectionPage extends GetView<DetailsSelectionController> {
       bottomSheet: Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            FloatingActionButton.extended(
-              heroTag: TextsConstants.addCart,
-              label: const Text(TextsConstants.addCart),
-              onPressed: () => controller.show(),
-              backgroundColor: ColorsTheme.antique.shade700,
-              extendedPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.2),
-            ),
-            FloatingActionButton(
-              heroTag: TextsConstants.viewCart,
-              child: const Icon(Icons.shopping_cart_outlined),
-              onPressed: () => controller.goToCar(),
-              backgroundColor: ColorsTheme.antique.shade700,
-            ),
-          ],
-        ),
+        child: controller.obx((state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              FloatingActionButton.extended(
+                heroTag: TextsConstants.addCart,
+                label: const Text(TextsConstants.addCart),
+                onPressed: () => controller.show(),
+                backgroundColor: ColorsTheme.antique.shade700,
+                extendedPadding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.2),
+              ),
+              FloatingActionButton(
+                heroTag: TextsConstants.viewCart,
+                child: const Icon(Icons.shopping_cart_outlined),
+                onPressed: () => controller.goToCar(),
+                backgroundColor: ColorsTheme.antique.shade700,
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

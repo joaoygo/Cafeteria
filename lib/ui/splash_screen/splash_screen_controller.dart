@@ -13,7 +13,7 @@ class SplashScreenController extends GetxController {
     await Future.delayed(
       const Duration(seconds: LayoutConstants.durationSplashScreenPage),
       () async {
-        await Get.offAllNamed(AppRoutes.homeScreen);
+        await Get.offAllNamed(AppRoutes.root, arguments: 0);
       },
     );
   }
