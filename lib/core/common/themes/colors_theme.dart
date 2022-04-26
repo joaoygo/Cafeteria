@@ -19,7 +19,7 @@ abstract class ColorsTheme {
       400: Color(0xff707070),
       500: Color(0xFF838383),
       600: Color(0xFF666666),
-      700: Color(0xFF333333),
+      700: Color(0xFF000000),
     },
   );
   static const MaterialColor scarlet = MaterialColor(
