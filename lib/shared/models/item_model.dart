@@ -3,10 +3,10 @@ import 'dart:convert';
 class ItemModel {
   final String id;
   final String name;
-  final int amount;
-  final String size;
-  final double price;
-  final int cube;
+  int amount;
+  String size;
+  double price;
+  int cube;
   final String avatar;
   final String syscoffeId;
   ItemModel({
