@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 abstract class AppTextStyleTheme {
   static const double thirtysixSize = 36;
   static const double thirtySize = 30;
+  static const double twentysixSize = 26;
+  static const double twentyfiveSize = 25;
   static const double twentythreeSize = 23;
   static const double twentySize = 20.0;
   static const double eighteenSize = 18.0;
@@ -60,5 +62,36 @@ abstract class AppTextStyleTheme {
     fontSize: seventeenSize,
     fontWeight: FontWeight.bold,
     color: ColorsTheme.antique.shade700,
+  );
+  static final TextStyle cardDetailsPriceItemWidgetTextStyle = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: twentyfiveSize,
+    fontWeight: FontWeight.bold,
+    color: ColorsTheme.antique.shade700,
+  );
+  static final TextStyle cardDetailsItemSubTitleSpanWidgetTextStyle = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: fourteenSize,
+    fontWeight: FontWeight.bold,
+    color: ColorsTheme.antique.shade700,
+  );
+  static final TextStyle cardDetailsItemSubTitleWidgetTextStyle = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: fourteenSize,
+    fontWeight: FontWeight.normal,
+    color: ColorsTheme.neutral.shade700,
+  );
+  static final TextStyle cardDetailsItemTitleWidgetTextStyle = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: twentySize,
+    fontWeight: FontWeight.normal,
+    color: ColorsTheme.neutral.shade700,
+  );
+  static final TextStyle cardScreenPageLineFooterTextWidgetTextStyle =
+      TextStyle(
+    fontFamily: fontFamily,
+    fontSize: twentysixSize,
+    fontWeight: FontWeight.bold,
+    color: ColorsTheme.neutral.shade700,
   );
 }
