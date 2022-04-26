@@ -21,7 +21,7 @@ class CartScreenPage extends GetView<CartScreenController> {
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        elevation: 0,
+        elevation: 5,
         backgroundColor: Colors.transparent,
         foregroundColor: ColorsTheme.neutral.shade700,
         title: Text(TextsConstants.cart,
