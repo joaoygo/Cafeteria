@@ -4,6 +4,7 @@ import 'package:cafeteira_ygo/shared/models/item_model.dart';
 import 'package:get/get.dart';
 
 import '../../core/routes/app_routes.dart';
+import '../cart_screen/cart_screen_controller.dart';
 
 class DetailsSelectionController extends GetxController with StateMixin {
   ItemModel finalItem = ItemModel.init();
@@ -124,6 +125,8 @@ class DetailsSelectionController extends GetxController with StateMixin {
   }
 
   void goToCar() async {
+    CartScreenController cartScreenController = Get.find();
+    await cartScreenController.findItemsCart();
     Get.toNamed(
       AppRoutes.cartScreen,
     );
