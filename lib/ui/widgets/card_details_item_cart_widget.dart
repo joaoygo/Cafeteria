@@ -32,11 +32,19 @@ class CardDetailsItemCartWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  '${AssetsConstants.baseAssets}${nome.toLowerCase()}.svg',
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  height: MediaQuery.of(context).size.height * 0.1,
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      '${AssetsConstants.baseAssets}${nome.toLowerCase()}.svg',
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(

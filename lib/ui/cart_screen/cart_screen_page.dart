@@ -54,26 +54,23 @@ class CartScreenPage extends GetView<CartScreenController> {
                 child: MediaQuery.removePadding(
                   context: context,
                   removeTop: true,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    //shrinkWrap: true,
-                    itemCount: state.length,
-                    itemBuilder: (_, index) {
-                      final ItemModel item = state[index];
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: MediaQuery.of(context).size.height * 0.03,
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.1),
-                        child: CardDetailsItemCartWidget(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      //shrinkWrap: true,
+                      itemCount: state.length,
+                      itemBuilder: (_, index) {
+                        final ItemModel item = state[index];
+                        return CardDetailsItemCartWidget(
                           nome: item.name,
                           size: item.size,
                           amount: item.amount,
                           amoutSugar: item.cube,
                           price: item.price,
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

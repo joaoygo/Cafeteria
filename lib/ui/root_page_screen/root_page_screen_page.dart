@@ -2,6 +2,7 @@ import 'package:cafeteira_ygo/core/common/constants/assets_constants.dart';
 import 'package:cafeteira_ygo/core/common/themes/colors_theme.dart';
 import 'package:cafeteira_ygo/ui/root_page_screen/root_page_screen_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,17 @@ class RootPageScreen extends GetView<RootPageScreenController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+    );
     return Obx(() => Scaffold(
           body: SafeArea(
             child: controller.bodyContent.elementAt(controller.selectedIndex),
@@ -38,13 +50,13 @@ class RootPageScreen extends GetView<RootPageScreenController> {
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     AssetsConstants.cupIcon,
-                    width: 24,
+                    width: 36,
                     color: ColorsTheme.antique.shade600,
                   ),
                   label: "",
                   activeIcon: SvgPicture.asset(
                     AssetsConstants.cupIcon,
-                    width: 24,
+                    width: 36,
                     color: ColorsTheme.antique.shade700,
                   ),
                 ),
