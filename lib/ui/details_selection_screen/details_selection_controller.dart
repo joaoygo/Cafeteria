@@ -11,11 +11,9 @@ class DetailsSelectionController extends GetxController with StateMixin {
   RxString currentSize = ''.obs;
   RxInt currentSugar = 0.obs;
   RxInt amountItems = 0.obs;
-  RxDouble basePriceNow = 0.0.obs;
-  RxDouble basePrice = 0.0.obs;
-  // RxDouble unitaryPrice = 0.0.obs;
-  // RxDouble valueItemSugar = 0.0.obs;
-  // RxDouble valueItemSize = 0.0.obs;
+  RxDouble priceSize = 0.0.obs;
+  RxDouble priceSugar = 0.0.obs;
+  RxDouble priceFinal = 0.0.obs;
 
   final IDetailsSelectionScreenRepository _iDetailsSelectionScreenRepository;
   DetailsSelectionController(
@@ -27,8 +25,8 @@ class DetailsSelectionController extends GetxController with StateMixin {
     finalItem = Get.arguments;
     currentSize.value = finalItem.size;
     currentSugar.value = finalItem.cube;
-    basePrice.value = finalItem.price;
-    amountItems.value = 1;
+    amountItems.value = finalItem.amount;
+    changeSize('s');
     change([], status: RxStatus.success());
   }
 
@@ -44,75 +42,68 @@ class DetailsSelectionController extends GetxController with StateMixin {
   }
 
   void changeSize(String newSize) {
-    currentSize.value = newSize;
-    if (newSize == 's') {
-      basePrice.value = finalItem.price + 1.50;
-    } else if (newSize == 'm') {
-      basePrice.value = finalItem.price + 2;
-    } else if (newSize == 'l') {
-      basePrice.value = finalItem.price + 2.50;
+    if (newSize == 's' && amountItems.value == 1) {
+      priceSize.value = 0.0;
+      currentSize.value = newSize;
+      priceUnit();
+    } else if (newSize == 'm' && amountItems.value == 1) {
+      priceSize.value = 1.50;
+      currentSize.value = newSize;
+      priceUnit();
+    } else if (newSize == 'l' && amountItems.value == 1) {
+      priceSize.value = 2.5;
+      currentSize.value = newSize;
+      priceUnit();
     }
   }
 
   void changeAmountSugar(int newAmountCubesSugar) {
-    if (newAmountCubesSugar == 1 && currentSugar.value != newAmountCubesSugar) {
-      //changeSize(currentSize.value);
-      basePrice.value = basePrice.value + 0.50;
+    if (newAmountCubesSugar == 1 && amountItems.value == 1) {
+      priceSugar.value = 0.25;
       currentSugar.value = newAmountCubesSugar;
-    } else if (newAmountCubesSugar == 2 &&
-        currentSugar.value != newAmountCubesSugar) {
-      changeSize(currentSize.value);
-      basePrice.value = basePrice.value + 1;
+      priceUnit();
+    } else if (newAmountCubesSugar == 2 && amountItems.value == 1) {
+      priceSugar.value = 0.50;
       currentSugar.value = newAmountCubesSugar;
-    } else if (newAmountCubesSugar == 3 &&
-        currentSugar.value != newAmountCubesSugar) {
-      changeSize(currentSize.value);
-      basePrice.value = basePrice.value + 1.5;
+      priceUnit();
+    } else if (newAmountCubesSugar == 3 && amountItems.value == 1) {
+      priceSugar.value = 0.75;
       currentSugar.value = newAmountCubesSugar;
-    } else if (newAmountCubesSugar == 0) {
+      priceUnit();
+    } else if (newAmountCubesSugar == 0 && amountItems.value == 1) {
+      priceSugar.value = 0.0;
       currentSugar.value = newAmountCubesSugar;
-      changeSize(currentSize.value);
+      priceUnit();
     }
   }
 
-  // void calculateUnitaryPrice() {
-  //   basePrice.value =
-  //       (valueItemSugar.value + valueItemSize.value) - valueItemSize.value;
-  // }
+  void priceUnit() {
+    priceFinal.value = (priceSize.value + priceSugar.value) + finalItem.price;
+  }
 
   void decrement() {
-    if (amountItems.value == 2) {
-      changeAmountSugar(currentSugar.value);
+    if (amountItems.value == 1) {
+      priceFinal.value = priceFinal.value / amountItems.value;
       amountItems.value = 1;
-    } else if (amountItems.value == 1) {
-      amountItems.value = 1;
+      priceFinal.value = priceFinal.value * amountItems.value;
     } else {
+      priceFinal.value = priceFinal.value / amountItems.value;
       amountItems.value = amountItems.value - 1;
-      basePrice.value = basePrice.value - (basePrice.value / amountItems.value);
+      priceFinal.value = priceFinal.value * amountItems.value;
     }
   }
 
   void increment() {
-    if (basePriceNow.value != basePrice.value) {
-      currentSize.value = 's';
-      currentSugar.value = 0;
-      amountItems.value = 1;
-      basePrice.value = 0.0;
-    } else {
-      basePrice = (basePrice.value * amountItems.value) as RxDouble;
-    }
-    // var uniValue = basePrice.value / amountItems.value;
-    // amountItems.value = amountItems.value + 1;
-    // basePrice.value = uniValue * amountItems.value;
-    // print(amountItems);
+    priceFinal.value = priceFinal.value / amountItems.value;
+    amountItems.value = amountItems.value + 1;
+    priceFinal.value = priceFinal.value * amountItems.value;
   }
 
-  void show() {
+  void addItemCart() {
     finalItem.size = currentSize.value;
     finalItem.cube = currentSugar.value;
     finalItem.amount = amountItems.value;
-    finalItem.price =
-        ((basePrice.value * amountItems.value) + (currentSugar.value * 0.50));
+    finalItem.price = priceFinal.value;
 
     change([], status: RxStatus.loading());
     try {

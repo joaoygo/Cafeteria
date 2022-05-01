@@ -95,7 +95,7 @@ class DetailsSelectionPage extends GetView<DetailsSelectionController> {
                                   .detailsSelectionPriceItemSpanTextStyle,
                             ),
                             Text(
-                              controller.basePrice.value.toStringAsFixed(2),
+                              controller.priceFinal.value.toStringAsFixed(2),
                               style: AppTextStyleTheme
                                   .detailsSelectionPriceItemTextStyle,
                             )
@@ -543,7 +543,7 @@ class DetailsSelectionPage extends GetView<DetailsSelectionController> {
               FloatingActionButton.extended(
                 heroTag: TextsConstants.addCart,
                 label: const Text(TextsConstants.addCart),
-                onPressed: () => controller.show(),
+                onPressed: () => controller.addItemCart(),
                 backgroundColor: ColorsTheme.antique.shade700,
                 extendedPadding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.2),

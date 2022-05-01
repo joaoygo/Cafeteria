@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:cafeteira_ygo/core/common/constants/texts_constants.dart';
 import 'package:cafeteira_ygo/ui/widgets/total_items_widget.dart';
-import 'package:get/get.dart';
 
 import '../../core/common/themes/app_text_style_theme.dart';
 
@@ -14,6 +13,8 @@ class CardDetailsItemCartWidget extends StatelessWidget {
   final String nome;
   final int amoutSugar;
   final double price;
+  final VoidCallback increment;
+  final VoidCallback decrement;
   const CardDetailsItemCartWidget({
     Key? key,
     required this.amount,
@@ -21,6 +22,8 @@ class CardDetailsItemCartWidget extends StatelessWidget {
     required this.nome,
     required this.amoutSugar,
     required this.price,
+    required this.increment,
+    required this.decrement,
   }) : super(key: key);
 
   @override
@@ -32,11 +35,19 @@ class CardDetailsItemCartWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  '${AssetsConstants.baseAssets}${nome.toLowerCase()}.svg',
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  height: MediaQuery.of(context).size.height * 0.1,
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      '${AssetsConstants.baseAssets}${nome.toLowerCase()}.svg',
+                      width: 50,
+                      height: 50,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -70,10 +81,8 @@ class CardDetailsItemCartWidget extends StatelessWidget {
               children: [
                 TotalItemsWidget(
                   value: amount,
-                  incremente: () =>
-                      Get.snackbar('Em construçao', 'Em construçao'),
-                  decremente: () =>
-                      Get.snackbar('Em construçao', 'Em construçao'),
+                  incremente: increment,
+                  decremente: decrement,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
