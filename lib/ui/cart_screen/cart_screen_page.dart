@@ -1,6 +1,8 @@
 import 'package:cafeteira_ygo/core/common/constants/texts_constants.dart';
 import 'package:cafeteira_ygo/shared/models/item_model.dart';
 import 'package:cafeteira_ygo/ui/widgets/card_details_item_cart_widget.dart';
+import 'package:cafeteira_ygo/ui/widgets/floating_button_primary_widget.dart';
+import 'package:cafeteira_ygo/ui/widgets/floating_button_round_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -25,9 +27,7 @@ class CartScreenPage extends GetView<CartScreenController> {
         title: Text(TextsConstants.cart,
             style: AppTextStyleTheme.detailsSelectionTitleAntiqueTextStyle),
       ),
-      body: controller.obx(
-        (state) {
-          return Column(
+      body: Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
@@ -59,15 +59,17 @@ class CartScreenPage extends GetView<CartScreenController> {
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       //shrinkWrap: true,
-                      itemCount: state.length,
+                      itemCount: controller.newItems.length,
                       itemBuilder: (_, index) {
-                        final ItemModel item = state[index];
+                        final ItemModel item = controller.newItems[index];
                         return CardDetailsItemCartWidget(
                           nome: item.name,
                           size: item.size,
                           amount: item.amount,
                           amoutSugar: item.cube,
                           price: item.price,
+                          increment: () => controller.increment(index),
+                          decrement: () => controller.decrement(index),
                         );
                       },
                     ),
@@ -94,7 +96,7 @@ class CartScreenPage extends GetView<CartScreenController> {
                       ),
                     ),
                     Text(
-                      '\$ 1,30',
+                      '\$ ${controller.priceTotal.toStringAsFixed(2)}',
                       style: AppTextStyleTheme
                           .cardScreenPageLineFooterTextWidgetTextStyle,
                     )
@@ -102,32 +104,57 @@ class CartScreenPage extends GetView<CartScreenController> {
                 ),
               ),
             ],
-          );
-        },
-        onError: (error) {
-          return Center(child: Text(error.toString()));
-        },
-      ),
+          )),
       bottomSheet: Padding(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            FloatingActionButton.extended(
-              heroTag: TextsConstants.addCart,
-              label: const Text(TextsConstants.finish),
-              onPressed: () => Get.snackbar('Em construçao', 'Em construçao'),
-              backgroundColor: ColorsTheme.antique.shade700,
-              extendedPadding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.2),
+            FloatingButtonPrimaryWidget(
+              onPressed: () => Get.defaultDialog(
+                title: 'Thanks',
+                titlePadding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.04),
+                content: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height * 0.035),
+                        child: const Text('Have a good coffee'),
+                      ),
+                      SvgPicture.asset(
+                        AssetsConstants.logoCoffeSplashScreenPage,
+                        width: MediaQuery.of(context).size.width * 0.25,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.035),
+                        child: FloatingButtonPrimaryWidget(
+                          onPressed: () => print('object'),
+                          label: 'OK',
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              label: TextsConstants.finish,
             ),
-            FloatingActionButton(
-              heroTag: TextsConstants.viewCart,
-              child: const Icon(Icons.cancel_outlined),
-              onPressed: () => Get.snackbar('Em construçao', 'Em construçao'),
-              backgroundColor: ColorsTheme.antique.shade700,
-            ),
+            FloatingButtonRoundWidget(
+                onPressed: () => Get.snackbar('Em construçao', 'Em construçao'),
+                icon: Icon(Icons.cancel_outlined),
+                label: TextsConstants.viewCart,
+                color: ColorsTheme.antique.shade700),
+            // FloatingActionButton(
+            //   heroTag: TextsConstants.viewCart,
+            //   child: const Icon(Icons.cancel_outlined),
+            //   onPressed: () => Get.snackbar('Em construçao', 'Em construçao'),
+            //   backgroundColor: ColorsTheme.antique.shade700,
+            // ),
           ],
         ),
       ),

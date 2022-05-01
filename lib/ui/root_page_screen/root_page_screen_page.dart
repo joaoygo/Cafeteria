@@ -13,8 +13,8 @@ class RootPageScreen extends GetView<RootPageScreenController> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+      SystemUiOverlayStyle(
+        statusBarColor: ColorsTheme.antique.shade600,
         statusBarIconBrightness: Brightness.dark,
       ),
     );
@@ -23,6 +23,7 @@ class RootPageScreen extends GetView<RootPageScreenController> {
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
     );
     return Obx(() => Scaffold(
+          extendBodyBehindAppBar: true,
           body: SafeArea(
             child: controller.bodyContent.elementAt(controller.selectedIndex),
           ),
